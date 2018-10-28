@@ -7,7 +7,12 @@ const Post = require('../models/Posts');
 router.post('/post', function(req, res) {
     const request = req.body;
 
-    // validatePost(request)
+    const { errors, isValid } = validatePost(request);
+
+    if(!isValid) {
+        return res.status(400).json(errors);
+    }
+
     const Article = new Post({
         title: request.title,
         description: request.description,

@@ -13,7 +13,7 @@ module.exports = function validatePost(data) {
     if(isEmpty(data.description)) {
         errors.description = 'Description is empty';
     }
-    console.log(errors)
+
     return {
         errors,
         isValid: isEmpty(errors)
