@@ -1,5 +1,6 @@
 import {
     POST_FORM,
+    SEND_POST,
 } from '../actions/types';
 
 const initialState = {
@@ -8,13 +9,19 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
+    console.log(action.type)
     switch (action.type) {
         case POST_FORM:
             return {
                 ...state,
                 items: action.payload
             }
+        case SEND_POST:
+            return {
+                ...state,
+                item: action.payload
+            }
         default: 
-            return state
+            return state;
         }
 }

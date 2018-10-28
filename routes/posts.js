@@ -7,6 +7,7 @@ const Post = require('../models/Posts');
 router.post('/post', function(req, res) {
     const request = req.body;
 
+    console.log(req.body)
     const { errors, isValid } = validatePost(request);
 
     if(!isValid) {
