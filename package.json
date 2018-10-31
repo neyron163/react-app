@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"nodemon ./server.js\" \"cd ./client && npm start\"",
+    "start": "nodemon ./server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -31,6 +31,7 @@
     "validator": "^10.8.0"
   },
   "devDependencies": {
+    "node-fetch": "^2.2.0",
     "nodemon": "^1.18.5"
   }
 }
