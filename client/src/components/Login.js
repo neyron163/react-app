@@ -6,8 +6,8 @@ import classnames from 'classnames';
 
 class Login extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             email: '',
             password: '',
@@ -54,9 +54,10 @@ class Login extends Component {
         return(
         <div className="container" style={{ marginTop: '50px', width: '700px'}}>
             <h2 style={{marginBottom: '40px'}}>Login</h2>
-            <form onSubmit={ this.handleSubmit }>
+            <form onSubmit={ this.handleSubmit } id="loginForm">
                 <div className="form-group">
                     <input
+                    id="email"
                     type="email"
                     placeholder="Email"
                     className={classnames('form-control form-control-lg', {
@@ -70,6 +71,7 @@ class Login extends Component {
                 </div>
                 <div className="form-group">
                     <input
+                    id="password"
                     type="password"
                     placeholder="Password"
                     className={classnames('form-control form-control-lg', {
@@ -98,7 +100,7 @@ Login.propTypes = {
     errors: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
     auth: state.auth,
     errors: state.errors
 })
