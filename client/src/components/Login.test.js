@@ -17,7 +17,12 @@ describe('<Login>', () => {
     const mockLoginfn = jest.fn();
     
     const initialState = {
-      auth: true
+      auth: {
+        isAuthenticated: false
+      },
+      errors: {
+
+      }
     }
     
     
@@ -27,7 +32,7 @@ describe('<Login>', () => {
     });
 
     it('mapStateToProps', () => {
-      expect(mapStateToProps(initialState).auth).toEqual(true);
+      expect(mapStateToProps(initialState).auth).toEqual({ isAuthenticated: false });
     })
 
     it('snapshot', () => {
