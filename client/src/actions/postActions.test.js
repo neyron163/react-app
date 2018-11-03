@@ -28,10 +28,10 @@ describe('async actions', () => {
     it('should make request and dispatch action', async () => {
         // Диспатчер
         const dispatch = jest.fn();
-        // Это будет отправлено на сервер
+        // Массив отправим на сервер
         const data = []
         // Сам запрос с параметром post
-        // mockResolvedValue - функция с положительный ответом Promise 
+        // mockResolvedValue - функция с положительным ответом Promise 
         axios.post.mockResolvedValue({ data: 'post' });
         // await ожидает разрешения Promise
         // Далее вызываем функцию sendPost с аргументом data
@@ -40,8 +40,8 @@ describe('async actions', () => {
         // Url запроса и массив с обьектами
         expect(axios.post).toHaveBeenCalledWith('/api/form/post', data);
         // Вызвайный диспачер должен иметь обьект
-        // первый это тип обычная константа SEND POST
-        // второй это payload то есть полученные данные
+        // первое это тип обычная константа SEND POST
+        // второе это payload то есть полученные данные 
         expect(dispatch).toHaveBeenCalledWith({
             type: types.SEND_POST,
             payload: 'post'
