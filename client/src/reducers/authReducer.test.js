@@ -45,7 +45,6 @@ describe('authorization reducer', () => {
     };
     const action = {
       type: types.SET_CURRENT_USER,
-      isAuthenticated: false,
       payload:{
         'login': 'admin',
         'password': 'admin'
