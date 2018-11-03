@@ -26,7 +26,7 @@ router.post('/post', function(req, res) {
 });
 
 
-router.post('/posts', function(req, res) {
+router.get('/posts', function(req, res) {
     Post.find(function(err, arr){
         res.send(arr)
     })

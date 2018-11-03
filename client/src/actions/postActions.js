@@ -6,7 +6,7 @@ import {
 
 export function getPosts() {
     return dispatch => {
-        return axios.post('/api/form/posts')
+        return axios.get('/api/form/posts')
         .then(res => res.data)
         .then(posts => dispatch({
             type: POST_FORM,
