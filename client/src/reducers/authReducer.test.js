@@ -2,22 +2,63 @@ import reducer from './authReducer';
 import * as types from '../actions/types';
 
 
+// describe('authorization reducer', () => {
+//   it('  reducer for SET_CURRENT_USER  ', () => {
+//     let state = {
+//       isAuthenticated: true,
+//       user: {
+//         'login': 'admin',
+//         'password': 'admin'
+//       }
+//     }
+//     state = reducer(state, types.SET_CURRENT_USER)
+//     expect(state).toEqual({
+//       isAuthenticated: true,
+//       user: {
+//         'login': 'admin',
+//         'password': 'admin'
+//       }
+//     })
+//   })
+// })
+
 describe('authorization reducer', () => {
-  it('  reducer for SET_CURRENT_USER  ', () => {
-    let state = {
-      isAuthenticated: true,
-      user: {
+
+  it('should return the initial state', () => {
+    const state = undefined;
+    const action = {
+      payload: {}
+    };
+    expect(reducer(state, {})).toEqual(
+      {
+        ...state,
+        isAuthenticated: false,
+        user: action.payload
+      }
+    );
+  });
+
+  it('should handle SET_CURRENT_USER action', () => {
+    const state = {
+      isAuthenticated: false,
+      user: null
+    };
+    const action = {
+      type: types.SET_CURRENT_USER,
+      isAuthenticated: false,
+      payload:{
         'login': 'admin',
         'password': 'admin'
-      }
-    }
-    state = reducer(state, types.SET_CURRENT_USER)
-    expect(state).toEqual({
+      } 
+    };
+    expect(reducer(state, action)).toEqual({
       isAuthenticated: true,
       user: {
         'login': 'admin',
         'password': 'admin'
       }
     })
-  })
-})
+
+  });
+
+});
