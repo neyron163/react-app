@@ -5,19 +5,17 @@ describe('authorization reducer', () => {
 
   it('should return the initial state', () => {
     const state = undefined;
-    const action = {
-      payload: {}
-    };
+    const action = {}
     expect(reducer(state, {})).toEqual(
       {
         ...state,
         isAuthenticated: false,
-        user: action.payload
+        user: action
       }
     );
   });
 
-  it('should handle SET_CURRENT_USER action', () => {
+  it('should handle SET_CURRENT_USER action', () => { 
     const state = {
       isAuthenticated: false,
       user: null
@@ -29,6 +27,10 @@ describe('authorization reducer', () => {
         'password': 'admin'
       } 
     };
+
+    expect(reducer({}, action))
+
+
     expect(reducer(state, action)).toEqual({
       isAuthenticated: true,
       user: {
@@ -36,6 +38,7 @@ describe('authorization reducer', () => {
         'password': 'admin'
       }
     })
+
 
   });
 
