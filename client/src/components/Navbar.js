@@ -35,8 +35,8 @@ class Navbar extends Component {
         </ul>
       )
         return(
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <Link className="navbar-brand" to="/">Redux Node Auth</Link>
+            <nav className="navbar navbar-expand-lg navbar-light">
+                <Link className="navbar-brand" to="/">Blog</Link>
                 <div className="navbar-collapse" id="navbarSupportedContent">
                     {isAuthenticated ? authLinks : guestLinks}
                 </div>
