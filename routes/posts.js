@@ -9,7 +9,7 @@ router.post('/post', function(req, res) {
 
     console.log(req.body)
     const { errors, isValid } = validatePost(request);
-
+    console.log(errors)
     if(!isValid) {
         return res.status(400).json(errors);
     }

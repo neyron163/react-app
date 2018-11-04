@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPosts, sendPost } from '../actions/postActions';
 import { Article } from './Article';
+import classnames from 'classnames';
+
 class Posts extends Component {
     constructor (props) {
         super (props);
@@ -13,7 +15,8 @@ class Posts extends Component {
             description: '',
             image: '',
             likes: 0,
-            adminLevel: 10
+            adminLevel: 10,
+            errors: {}
           };
 
         this.onChange = this.onChange.bind (this);
@@ -27,6 +30,11 @@ class Posts extends Component {
     componentWillReceiveProps(nextProps){
         if(nextProps.newPost){
             this.props.post.push(nextProps.newPost)
+        }
+        if(nextProps.errors) {
+            this.setState({
+                errors: nextProps.errors
+            });
         }
     }
     onChange (e) {
@@ -47,6 +55,7 @@ class Posts extends Component {
     }
     render() {
         const {isAuthenticated, user} = this.props.auth;
+        const {errors} = this.state;
 
         function accessAdmin(user, adminLevel){
             if(user.access >= adminLevel){
@@ -57,22 +66,34 @@ class Posts extends Component {
 
         const superLevelPosts = (
                     <Article post={this.props.post}>
-                        <form onSubmit={this.onSubmit}>
-                            <input
-                                type="text"
-                                placeholder="Your title"
-                                name="title"
-                                onChange={this.onChange}
-                                value={this.state.title}
-                            />
-                            <textarea
-                                name="description"
-                                rows="6"
-                                placeholder="Your description"
-                                value={this.state.body}
-                                onChange={this.onChange}
-                            />
-                            <button type="sumbmit">Sumbmit</button>
+                        <form onSubmit={this.onSubmit} className="form-group">
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    placeholder="Your title"
+                                    name="title"
+                                    onChange={this.onChange}
+                                    value={this.state.title}
+                                    className={classnames('form-control form-control-lg', {
+                                        'is-invalid': errors.title
+                                    })}
+                                />
+                                {errors.title && (<div className="invalid-feedback">{errors.title}</div>)}
+                            </div>
+                            <div className="form-group">
+                                <textarea
+                                    name="description"
+                                    rows="6"
+                                    placeholder="Your description"
+                                    value={this.state.body}
+                                    onChange={this.onChange}
+                                    className={classnames('form-control form-control-lg', {
+                                        'is-invalid': errors.description
+                                    })}
+                                />
+                                {errors.description && (<div className="invalid-feedback">{errors.description}</div>)}
+                            </div>
+                            <button type="sumbmit" className="btn btn-primary">Sumbmit</button>
                         </form>
                     </Article>
         );
@@ -82,7 +103,7 @@ class Posts extends Component {
                 </Article>
         );
         return(
-            <div>
+            <div className="container">
                 {isAuthenticated && accessAdmin(user, this.state.adminLevel) ? superLevelPosts : lowLevelPosts}
             </div>
         );
@@ -93,13 +114,15 @@ Posts.propTypes = {
     getPosts: PropTypes.func.isRequired,
     sendPost: PropTypes.func.isRequired,
     posts: PropTypes.array.isRequired,
-    newPost: PropTypes.object
+    newPost: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
     post: state.post.items,
-    newPost: state.post.item
+    newPost: state.post.item,
+    errors: state.errors
 })
 
 export default connect(mapStateToProps, { getPosts, sendPost } )(withRouter(Posts));

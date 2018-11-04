@@ -42,6 +42,7 @@ class Login extends Component {
         if(nextProps.auth.isAuthenticated) {
             this.props.history.push('/')
         }
+        console.log(nextProps)
         if(nextProps.errors) {
             this.setState({
                 errors: nextProps.errors
