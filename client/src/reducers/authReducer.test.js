@@ -28,8 +28,6 @@ describe('authorization reducer', () => {
       } 
     };
 
-    expect(reducer({}, action))
-
 
     expect(reducer(state, action)).toEqual({
       isAuthenticated: true,
