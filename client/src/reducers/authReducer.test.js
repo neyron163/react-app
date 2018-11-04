@@ -38,7 +38,19 @@ describe('authorization reducer', () => {
         'password': 'admin'
       }
     })
-
+    expect(reducer(state, {
+      type: types.SET_CURRENT_USER,
+      payload:{
+        'login': 'admin1',
+        'password': 'admin1'
+      } 
+    })).toEqual({
+      isAuthenticated: true,
+      user: {
+        'login': 'admin1',
+        'password': 'admin1'
+      }
+    })
 
   });
 
