@@ -38,7 +38,7 @@ describe('authorization reducer', () => {
     expect(reducer(state, {
       type: types.SET_CURRENT_USER,
       payload:{
-        'login': 'admin0',
+        'login': 'admin1',
         'password': 'admin1'
       } 
     })).toEqual({
