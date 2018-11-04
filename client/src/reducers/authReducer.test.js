@@ -37,11 +37,11 @@ describe('authorization reducer', () => {
         'login': 'admin',
         'password': 'admin'
       }
-    })
+    });
     expect(reducer(state, {
       type: types.SET_CURRENT_USER,
       payload:{
-        'login': 'admin1',
+        'login': 'admin0',
         'password': 'admin1'
       } 
     })).toEqual({
@@ -50,7 +50,7 @@ describe('authorization reducer', () => {
         'login': 'admin1',
         'password': 'admin1'
       }
-    })
+    });
 
   });
 
