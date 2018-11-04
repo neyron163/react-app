@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPosts, sendPost } from '../actions/postActions';
-
+import { Article } from './Article';
 class Posts extends Component {
     constructor (props) {
         super (props);
@@ -56,60 +56,30 @@ class Posts extends Component {
         }
 
         const superLevelPosts = (
-            <div>
-                <div>
-                    {this.props.post.map((el) => {
-                        return(
-                                <article className="item" key={el._id}>
-                                    You can change this article                         
-                                    <h3>
-                                        {el.title}
-                                    </h3>
-                                    <p>
-                                        {el.description}
-                                    </p>
-                                </article>
-                        )
-                    })}
-                </div>
-
-                <div>
-                    <form onSubmit={this.onSubmit}>
-                        <input
-                            type="text"
-                            placeholder="Your title"
-                            name="title"
-                            onChange={this.onChange}
-                            value={this.state.title}
-                        />
-                        <textarea
-                            name="description"
-                            rows="6"
-                            placeholder="Your description"
-                            value={this.state.body}
-                            onChange={this.onChange}
-                        />
-                        <button type="sumbmit">Sumbmit</button>
-                    </form>
-                </div>
-            </div>
+                    <Article post={this.props.post}>
+                        <form onSubmit={this.onSubmit}>
+                            <input
+                                type="text"
+                                placeholder="Your title"
+                                name="title"
+                                onChange={this.onChange}
+                                value={this.state.title}
+                            />
+                            <textarea
+                                name="description"
+                                rows="6"
+                                placeholder="Your description"
+                                value={this.state.body}
+                                onChange={this.onChange}
+                            />
+                            <button type="sumbmit">Sumbmit</button>
+                        </form>
+                    </Article>
         );
         const lowLevelPosts = (
-            <div>
-                    {this.props.post.map((el) => {
-                        return(
-                                <article className="item" key={el._id}>
-                                    You can not change this article                         
-                                    <h3>
-                                        {el.title}
-                                    </h3>
-                                    <p>
-                                        {el.description}
-                                    </p>
-                                </article>
-                        )
-                    })}
-            </div>
+                <Article post={this.props.post}>
+                    You can not change this articles
+                </Article>
         );
         return(
             <div>
