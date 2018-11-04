@@ -8,7 +8,6 @@ describe('authorization reducer', () => {
     const action = {}
     expect(reducer(state, {})).toEqual(
       {
-        ...state,
         isAuthenticated: false,
         user: action
       }
