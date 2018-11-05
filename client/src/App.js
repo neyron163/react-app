@@ -27,6 +27,11 @@ if(localStorage.jwtToken) {
 
 class App extends Component {
   render() {
+    const test = () => {
+      return (
+        <div>asdasd</div>
+        )
+    }
     return (
       <Provider store = { store }>
         <Router>
@@ -36,6 +41,7 @@ class App extends Component {
                   <Route exact path="/" component={ Home } />
                   <Route exact path="/register" component={ Register } />
                   <Route exact path="/login" component={ Login } />
+                  <Route exact path="/article/:id" component={ test }/>
                 </div>
             </div>
           </Router>

@@ -20,23 +20,23 @@ class Navbar extends Component {
                     <img src={user.avatar} alt={user.name} title={user.name}
                         className="rounded-circle"
                         style={{ width: '25px', marginRight: '5px'}} />
-                            Logout
+                           <span style={{ color: '#FFFFFF' }}>Logout</span>
                 </Link>
             </ul>
         )
       const guestLinks = (
         <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-                <Link className="nav-link" to="/register">Sign Up</Link>
+                <Link className="nav-link" to="/register" style={{ color: '#FFFFFF', fontWeight: '600', fontSize: '18px'}}>Sign Up</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/login">Sign In</Link>
+                <Link className="nav-link" to="/login" style={{ color: '#FFFFFF', fontWeight: '600', fontSize: '18px' }}>Sign In</Link>
             </li>
         </ul>
       )
         return(
-            <nav className="navbar navbar-expand-lg navbar-light">
-                <Link className="navbar-brand" to="/">Blog</Link>
+            <nav className="navbar navbar-expand-lg navbar-light" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
+                <Link className="navbar-brand" to="/" style={{ color: '#FFFFFF' }}>Blog</Link>
                 <div className="navbar-collapse" id="navbarSupportedContent">
                     {isAuthenticated ? authLinks : guestLinks}
                 </div>

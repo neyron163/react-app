@@ -63,7 +63,6 @@ class Posts extends Component {
             }
             return false;
         }
-
         const superLevelPosts = (
                     <Article post={this.props.post}>
                         <form onSubmit={this.onSubmit} className="form-group">
@@ -113,7 +112,7 @@ Posts.propTypes = {
     auth: PropTypes.object.isRequired,
     getPosts: PropTypes.func.isRequired,
     sendPost: PropTypes.func.isRequired,
-    posts: PropTypes.array.isRequired,
+    post: PropTypes.array.isRequired,
     newPost: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 }
