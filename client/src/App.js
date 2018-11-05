@@ -10,6 +10,7 @@ import Navbar from './components/Navbar';
 import Register from './components/Register';
 import Login from './components/Login';
 import Home from './components/Home';
+import { SingleArticle } from './components/Article';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -27,11 +28,6 @@ if(localStorage.jwtToken) {
 
 class App extends Component {
   render() {
-    const test = () => {
-      return (
-        <div>asdasd</div>
-        )
-    }
     return (
       <Provider store = { store }>
         <Router>
@@ -41,7 +37,7 @@ class App extends Component {
                   <Route exact path="/" component={ Home } />
                   <Route exact path="/register" component={ Register } />
                   <Route exact path="/login" component={ Login } />
-                  <Route exact path="/article/:id" component={ test }/>
+                  <Route exact path="/article/:id" component={ SingleArticle }/>
                 </div>
             </div>
           </Router>

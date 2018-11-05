@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { getPosts, sendPost } from '../actions/postActions';
 import { Article } from './Article';
 import classnames from 'classnames';
+import isEmpty from '../validation/is-empty';
 
 class Posts extends Component {
     constructor (props) {
@@ -28,12 +29,22 @@ class Posts extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.newPost){
-            this.props.post.push(nextProps.newPost)
-        }
+        console.log(nextProps.errors)
         if(nextProps.errors) {
             this.setState({
+                title: '',
+                description: '',
+                image: '',
                 errors: nextProps.errors
+            });
+        }
+        if(nextProps.newPost && !isEmpty(nextProps.newPost)){
+            this.props.post.push(nextProps.newPost);
+            this.setState ({
+                errors: {
+                    title: '',
+                    description: ''
+                }
             });
         }
     }
@@ -43,20 +54,21 @@ class Posts extends Component {
         });
     }
 
-    onSubmit (e) {    
+    onSubmit (e) {
         e.preventDefault ();
+        const { title, description, image, likes } = this.state;
         const data = {
-                title: this.state.title,
-                description: this.state.description,
-                image: this.state.image,
-                likes: this.state.likes,
-            }
+                title: title,
+                description: description,
+                image: image,
+                likes: likes,
+        }
+
         this.props.sendPost(data);
     }
     render() {
-        const {isAuthenticated, user} = this.props.auth;
+        const { isAuthenticated, user } = this.props.auth;
         const {errors} = this.state;
-
         function accessAdmin(user, adminLevel){
             if(user.access >= adminLevel){
                 return true;
@@ -84,7 +96,7 @@ class Posts extends Component {
                                     name="description"
                                     rows="6"
                                     placeholder="Your description"
-                                    value={this.state.body}
+                                    value={this.state.description}
                                     onChange={this.onChange}
                                     className={classnames('form-control form-control-lg', {
                                         'is-invalid': errors.description
@@ -97,9 +109,7 @@ class Posts extends Component {
                     </Article>
         );
         const lowLevelPosts = (
-                <Article post={this.props.post}>
-                    You can not change this articles
-                </Article>
+                <Article post={this.props.post} />
         );
         return(
             <div className="container">

@@ -7,9 +7,8 @@ const Post = require('../models/Posts');
 router.post('/post', function(req, res) {
     const request = req.body;
 
-    console.log(req.body)
     const { errors, isValid } = validatePost(request);
-    console.log(errors)
+    console.log(isValid)
     if(!isValid) {
         return res.status(400).json(errors);
     }
@@ -20,6 +19,7 @@ router.post('/post', function(req, res) {
         image: request.image,
         likes: request.likes
     });
+    
     Article.save().then(function() {
         res.json(Article)
     });
