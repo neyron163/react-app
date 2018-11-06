@@ -1,11 +1,13 @@
 import {
     POST_FORM,
     SEND_POST,
+    DELETE_POST,
 } from '../actions/types';
 
 const initialState = {
     items: [],
-    item: {}
+    item: {},
+    response: false
 }
 
 export default (state = initialState, action) => {
@@ -19,6 +21,11 @@ export default (state = initialState, action) => {
         return {
             ...state,
             item: action.payload,
+        }
+        case DELETE_POST:
+        return {
+            ...state,
+            response: action.payload,
         }
         default: 
             return state;

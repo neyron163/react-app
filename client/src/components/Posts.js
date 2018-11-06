@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getPosts, sendPost } from '../actions/postActions';
+import { getPosts, sendPost, deletePost } from '../actions/postActions';
 import { Article } from './Article';
 import classnames from 'classnames';
 import isEmpty from '../validation/is-empty';
@@ -17,11 +17,13 @@ class Posts extends Component {
             image: '',
             likes: 0,
             adminLevel: 10,
-            errors: {}
+            errors: {},
+            id: ''
           };
 
         this.onChange = this.onChange.bind (this);
-        this.onSubmit = this.onSubmit.bind (this);
+        this.onSendPost = this.onSendPost.bind (this);
+        this.onDeletePost = this.onDeletePost.bind (this);
     }
 
     componentDidMount() {
@@ -32,7 +34,7 @@ class Posts extends Component {
 
         const Posts = this.props.post;
         let lastID;
-
+        
         if(nextProps.errors) {
             this.setState({
                 title: '',
@@ -63,8 +65,9 @@ class Posts extends Component {
         });
     }
 
-    onSubmit (e) {
+    onSendPost (e) {
         e.preventDefault ();
+
         const { title, description, image, likes } = this.state;
         const data = {
                 title: title,
@@ -74,6 +77,14 @@ class Posts extends Component {
         }
 
         this.props.sendPost(data);
+    }
+    onDeletePost (e) {
+        e.preventDefault ();
+
+        const data = {
+            id: e.target.getAttribute('article')
+        };
+        this.props.deletePost(data);
     }
     render() {
         const { isAuthenticated, user } = this.props.auth;
@@ -85,8 +96,8 @@ class Posts extends Component {
             return false;
         }
         const superLevelPosts = (
-                    <Article post={this.props.post}>
-                        <form onSubmit={this.onSubmit} className="form-group">
+                    <Article post={this.props.post} delete={this.onDeletePost}>
+                        <form onSubmit={this.onSendPost} className="form-group">
                             <div className="form-group">
                                 <input
                                     type="text"
@@ -131,16 +142,18 @@ Posts.propTypes = {
     auth: PropTypes.object.isRequired,
     getPosts: PropTypes.func.isRequired,
     sendPost: PropTypes.func.isRequired,
+    deletePost: PropTypes.func.isRequired,
     post: PropTypes.array.isRequired,
     newPost: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
     post: state.post.items,
+    response: state.response,
     newPost: state.post.item,
     errors: state.errors
 })
 
-export default connect(mapStateToProps, { getPosts, sendPost } )(withRouter(Posts));
+export default connect(mapStateToProps, { getPosts, sendPost, deletePost } )(withRouter(Posts));

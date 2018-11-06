@@ -32,10 +32,11 @@ router.get('/posts', function(req, res) {
     })
 });
 
-router.delete('/delete/post', function(req, res) {
+router.post('/delete/post', function(req, res) {
     const ID = req.body.id;
+    
     Post.findByIdAndDelete(ID, () => {
-        res.send('ok')
+        res.send(true)
     })
 });
 

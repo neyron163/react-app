@@ -3,6 +3,7 @@ import {
     POST_FORM,
     SEND_POST,
     GET_ERRORS,
+    DELETE_POST,
 } from './types';
 
 export function getPosts() {
@@ -33,6 +34,21 @@ export function sendPost(data) {
                     type: GET_ERRORS,
                     payload: err.response.data
                 });
+            });
+    }
+};
+
+
+export function deletePost(id) {
+    return dispatch => {
+        return axios.post('/api/form/delete/post', id)
+            .then(res => res.data)
+            .then(res => dispatch({
+                type: DELETE_POST,
+                payload: res
+            }))
+            .catch(err => {
+                console.error(err)
             });
     }
 };
