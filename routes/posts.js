@@ -8,7 +8,7 @@ router.post('/post', function(req, res) {
     const request = req.body;
 
     const { errors, isValid } = validatePost(request);
-    console.log(isValid)
+
     if(!isValid) {
         return res.status(400).json(errors);
     }
@@ -29,6 +29,13 @@ router.post('/post', function(req, res) {
 router.get('/posts', function(req, res) {
     Post.find(function(err, arr){
         res.send(arr)
+    })
+});
+
+router.delete('/delete/post', function(req, res) {
+    const ID = req.body.id;
+    Post.findByIdAndDelete(ID, () => {
+        res.send('ok')
     })
 });
 

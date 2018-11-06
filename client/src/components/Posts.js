@@ -29,6 +29,8 @@ class Posts extends Component {
     }
 
     componentWillReceiveProps(nextProps){
+
+        const Posts = this.props.post;
         let lastID;
 
         if(nextProps.errors) {
@@ -39,10 +41,11 @@ class Posts extends Component {
                 errors: nextProps.errors
             });
         }
-        
-        this.props.post.slice(-1).forEach((el) => {
-            lastID = el._id;
-        });
+        if(Posts){
+            Posts.slice(-1).forEach((el) => {
+                lastID = el._id;
+            });
+        }
 
         if(nextProps.newPost && !isEmpty(nextProps.newPost) && nextProps.newPost._id !== lastID){
             this.props.post.push(nextProps.newPost);
