@@ -36,7 +36,10 @@ router.post('/delete/post', function(req, res) {
     const ID = req.body.id;
     
     Post.findByIdAndDelete(ID, () => {
-        res.send(true)
+    }).then(() => {
+      Post.find(function(err, arr){
+        res.send(arr)
+      })
     })
 });
 

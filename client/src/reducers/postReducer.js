@@ -6,8 +6,7 @@ import {
 
 const initialState = {
     items: [],
-    item: {},
-    response: false
+    item: {}
 }
 
 export default (state = initialState, action) => {
@@ -25,7 +24,7 @@ export default (state = initialState, action) => {
         case DELETE_POST:
         return {
             ...state,
-            response: action.payload,
+            items: action.payload,
         }
         default: 
             return state;

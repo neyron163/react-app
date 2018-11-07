@@ -84,7 +84,9 @@ class Posts extends Component {
         const data = {
             id: e.target.getAttribute('article')
         };
+
         this.props.deletePost(data);
+
     }
     render() {
         const { isAuthenticated, user } = this.props.auth;
@@ -138,6 +140,7 @@ class Posts extends Component {
         );
     }
 }
+
 Posts.propTypes = {
     auth: PropTypes.object.isRequired,
     getPosts: PropTypes.func.isRequired,
@@ -151,7 +154,6 @@ Posts.propTypes = {
 const mapStateToProps = (state) => ({
     auth: state.auth,
     post: state.post.items,
-    response: state.response,
     newPost: state.post.item,
     errors: state.errors
 })
