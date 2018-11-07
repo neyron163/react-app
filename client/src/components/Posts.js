@@ -37,9 +37,6 @@ class Posts extends Component {
         
         if(nextProps.errors) {
             this.setState({
-                title: '',
-                description: '',
-                image: '',
                 errors: nextProps.errors
             });
         }
