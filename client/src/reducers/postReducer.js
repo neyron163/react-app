@@ -1,3 +1,36 @@
+// @flow
+
+
+type State = {
+  items: Array<{
+    _id: string,
+    title: string,
+    description: string,
+    image: string,
+    likes: number,
+  }>,
+  item: Object
+};
+
+type TYPE_POST = { type: POST_FORM, items: Array<{
+  _id: string,
+  title: string,
+  description: string,
+  image: string,
+  likes: number,
+}> };
+type TYPE_SEND = { type: SEND_POST, item: Object };
+type TYPE_DELETE = { type: DELETE_POST, items: Array<{
+  _id: string,
+  title: string,
+  description: string,
+  image: string,
+  likes: number,
+}> };
+
+type Action = TYPE_POST | TYPE_SEND | TYPE_DELETE;
+
+
 import {
     POST_FORM,
     SEND_POST,
@@ -9,7 +42,7 @@ const initialState = {
     item: {}
 }
 
-export default (state = initialState, action) => {
+export default (state: State = initialState, action: Action) => {
     switch (action.type) {
         case POST_FORM:
         return {
