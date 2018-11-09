@@ -1,5 +1,7 @@
+// @flow
+
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPosts, sendPost, deletePost } from '../actions/postActions';
@@ -7,7 +9,27 @@ import { Article } from './Article';
 import classnames from 'classnames';
 import isEmpty from '../validation/is-empty';
 
-class Posts extends Component {
+type Props = {
+    auth: object,
+    getPosts: object,
+    sendPost: object,
+    deletePost: object,
+    post: object,
+    newPost: object,
+    errors: object,
+}
+
+type State = {
+    id: string,
+    title: string,
+    description: string,
+    image: string,
+    likes: number,
+    adminLevel: number,
+    errors: object
+}
+
+class Posts extends Component<Props, State> {
     constructor (props) {
         super (props);
 
@@ -144,15 +166,15 @@ class Posts extends Component {
     }
 }
 
-Posts.propTypes = {
-    auth: PropTypes.object.isRequired,
-    getPosts: PropTypes.func.isRequired,
-    sendPost: PropTypes.func.isRequired,
-    deletePost: PropTypes.func.isRequired,
-    post: PropTypes.array.isRequired,
-    newPost: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired,
-}
+// Posts.propTypes = {
+//     auth: PropTypes.object.isRequired,
+//     getPosts: PropTypes.func.isRequired,
+//     sendPost: PropTypes.func.isRequired,
+//     deletePost: PropTypes.func.isRequired,
+//     post: PropTypes.array.isRequired,
+//     newPost: PropTypes.object.isRequired,
+//     errors: PropTypes.object.isRequired,
+// }
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
