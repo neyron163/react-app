@@ -1,6 +1,14 @@
 // @flow
 
 
+import {
+  POST_FORM,
+  SEND_POST,
+  DELETE_POST,
+} from '../actions/types';
+
+
+
 type State = {
   items: Array<{
     _id: string,
@@ -12,15 +20,17 @@ type State = {
   item: Object
 };
 
-type TYPE_POST = { type: POST_FORM, items: Array<{
+type TYPE_POST = { type: POST_FORM, payload: Array<{
   _id: string,
   title: string,
   description: string,
   image: string,
   likes: number,
 }> };
-type TYPE_SEND = { type: SEND_POST, item: Object };
-type TYPE_DELETE = { type: DELETE_POST, items: Array<{
+
+type TYPE_SEND = { type: SEND_POST, payload: Object };
+
+type TYPE_DELETE = { type: DELETE_POST, payload: Array<{
   _id: string,
   title: string,
   description: string,
@@ -30,12 +40,6 @@ type TYPE_DELETE = { type: DELETE_POST, items: Array<{
 
 type Action = TYPE_POST | TYPE_SEND | TYPE_DELETE;
 
-
-import {
-    POST_FORM,
-    SEND_POST,
-    DELETE_POST,
-} from '../actions/types';
 
 const initialState = {
     items: [],
