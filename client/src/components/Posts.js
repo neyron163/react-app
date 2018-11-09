@@ -74,6 +74,12 @@ class Posts extends Component {
         }
 
         this.props.sendPost(data);
+
+        this.setState({
+            title: '',
+            description: '',
+            image: '',
+        })
     }
     onDeletePost (e) {
         e.preventDefault ();
