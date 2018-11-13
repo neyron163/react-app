@@ -10,7 +10,10 @@ import classnames from 'classnames';
 import isEmpty from '../validation/is-empty';
 
 type Props = {
-    auth: object,
+    auth: Object<{
+      isAuthenticated: boolean,
+      user: object
+    }>,
     getPosts: object,
     sendPost: object,
     deletePost: object,
@@ -30,7 +33,11 @@ type State = {
 }
 
 class Posts extends Component<Props, State> {
-    constructor (props) {
+  onChange;
+  onSendPost;
+  onDeletePost;
+
+    constructor (props: Props) {
         super (props);
 
         this.state = {
@@ -114,6 +121,7 @@ class Posts extends Component<Props, State> {
 
     }
     render() {
+      console.log(this.props)
         const { isAuthenticated, user } = this.props.auth;
         const {errors} = this.state;
         function accessAdmin(user, adminLevel){
