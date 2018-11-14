@@ -1,7 +1,23 @@
+// @flow
+
+
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-export const Article = (props) => {
+type Props = {
+  post: Array<
+    {
+      _id: string,
+      title: string,
+      description: string,
+      likes: number
+    }
+  >
+}
+
+
+export const Article = (props: Props) => {
+  console.log(props.delete)
     return (
     <div>
         {props.children}
