@@ -20,7 +20,7 @@ export const Article = (props: Props) => {
     return (
     <div>
         {props.children}
-        {props.post.slice(0).reverse().map((el, i) => {
+        {props.post.slice(0).map((el, i) => {
             return (
                     <article className="item" key={i} style={{ display: 'block', marginBottom: '30px', color: '#FFFFFF', textDecoration: 'none' }}>
                         <Link to={`article/${i + 1}`} style={{ color: '#FFFFFF', textDecoration: 'none' }}>
@@ -39,7 +39,7 @@ export const Article = (props: Props) => {
 }
 
 export const SingleArticle = (props) => {
-    return props.articles.reverse().map((el, i) => {
+    return props.articles.map((el, i) => {
         if(parseInt(props.id) === i + 1){
             return (
                 <div key={i}>

@@ -76,7 +76,7 @@ class Posts extends Component<Props, State> {
         }
 
         if(nextProps.newPost && !isEmpty(nextProps.newPost) && nextProps.newPost._id !== lastID){
-            this.props.post.push(nextProps.newPost);
+            this.props.post.unshift(nextProps.newPost);
             this.setState ({
                 errors: {
                     title: '',
