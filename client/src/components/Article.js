@@ -17,7 +17,6 @@ type Props = {
 
 
 export const Article = (props: Props) => {
-  console.log(props.delete)
     return (
     <div>
         {props.children}
@@ -39,10 +38,17 @@ export const Article = (props: Props) => {
     )
 }
 
-export const SingleArticle = () => {
-    return (
-    <div>
-        single article
-    </div>
-    )
+export const SingleArticle = (props) => {
+    return props.articles.reverse().map((el, i) => {
+        if(parseInt(props.id) === i + 1){
+            return (
+                <div key={i}>
+                    <h1 className="title">{el.title}</h1>
+                    <p className="description">{el.description}</p>
+                </div>
+            )
+        }else{
+            return null;
+        }
+    })
 }

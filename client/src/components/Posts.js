@@ -121,7 +121,6 @@ class Posts extends Component<Props, State> {
 
     }
     render() {
-      console.log(this.props)
         const { isAuthenticated, user } = this.props.auth;
         const {errors} = this.state;
         function accessAdmin(user, adminLevel){
