@@ -38,7 +38,7 @@ router.post('/delete/post', function(req, res) {
     Post.findByIdAndDelete(ID, () => {
     }).then(() => {
       Post.find(function(err, arr){
-        res.send(arr)
+        res.send(arr.reverse())
       })
     })
 });
