@@ -18,4 +18,6 @@ $ npm install
 ![login](https://github.com/neyron163/react-app/blob/master/login.png)
 ### Register
 ![register](https://github.com/neyron163/react-app/blob/master/register.png)
+### Solo post
+![register](https://github.com/neyron163/react-app/blob/master/solo.png)
 
