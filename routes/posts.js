@@ -1,11 +1,27 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+
 const validatePost = require('../validation/post');
 
 const Post = require('../models/Posts');
 
-router.post('/post', function(req, res) {
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, './public/images');
+    },
+    filename: function(req, file, cb){
+        cb(null, file.originalname);
+    }
+})
+const upload = multer({ storage: storage });
+
+router.post('/post', upload.single('image'), function(req, res) {
+    console.log(upload)
     const request = req.body;
+
+    console.log(req)
 
     const { errors, isValid } = validatePost(request);
 
