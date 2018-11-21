@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const config = require('./db');
+const  path = require('path');
 
 const users = require('./routes/user'); 
 const posts = require('./routes/posts'); 
@@ -19,6 +20,7 @@ require('./routes/passport')(passport);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/users', users);
 app.use('/api/form', posts);

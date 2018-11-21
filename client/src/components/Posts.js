@@ -76,7 +76,7 @@ class Posts extends Component<Props, State> {
         }
 
         if (nextProps.newPost && !isEmpty(nextProps.newPost) && nextProps.newPost._id !== lastID) {
-            this.props.post.unshift(nextProps.newPost);
+            this.props.post.push(nextProps.newPost);
             this.setState({
                 errors: {
                     title: '',
@@ -106,42 +106,44 @@ class Posts extends Component<Props, State> {
             {
                 title: title,
                 description: description,
-                // image: image,
+                image: 'poster',
                 likes: likes,
             }
         ]
 
         // Вставляем картинку
-        DataAndFiles.append('image', image, 'name' + '.jpg');
+        DataAndFiles.append('image', image, 'poster');
 
         DataAndFiles.append(
             'text',
             JSON.stringify(data)
-        )
-        console.log(DataAndFiles.get('image'))
-        console.log(image)
+        );
+
         // Вызываем функцию отправки, в качестве аргумента будет обьект с данными
         this.props.sendPost(DataAndFiles);
 
         // После отправки поля будут очищены
-        // this.setState({
-        //     title: '',
-        //     description: '',
-        //     image: '',
-        // });
+        this.setState({
+            title: '',
+            description: '',
+            image: '',
+        });
 
     }
 
     fileChangedHandler(e) {
+        // Обрабатываем найденный файл, он будет один
         const image = e.target.files[0];
+        // Тип файла только jpg формат
         const type = 'image/jpg';
 
+        // Проверка на undefined
         if (image) {
-            if (image.type === type) {
+            // if (image.type === type) {
                 this.setState({
                     image: image
-                })
-            }
+                });
+            // }
         }
         //     if (image.type === types[0]) {
         //         this.setState({
@@ -211,11 +213,14 @@ class Posts extends Component<Props, State> {
                         />
                         {errors.description && (<div className="invalid-feedback">{errors.description}</div>)}
                     </div>
+                    <div className="form-group">
                     <input
                         type="file"
                         id="file"
-                        className="file-input"
+                        className="form-control-file"
                         onChange={this.fileChangedHandler.bind(this)} />
+                    </div>
+
                     <button type="sumbmit" className="btn btn-primary">Sumbmit</button>
                 </form>
             </Article >
