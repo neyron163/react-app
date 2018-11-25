@@ -11,7 +11,7 @@ import {
     LastArticleStyle,
     ArticleSingle,
     ArticlesStyle,
-} from '../styles/Article';
+} from '../../styles/Article';
 
 type Props = {
     post: Array<
@@ -34,16 +34,16 @@ export const Article = (props: Props) => {
                     return (
                         <article className="item" key={i} style={i !== 3 ? ArticleStyle : LastArticleStyle}>
                             <Link to={`article/${i + 1}`} style={{ color: '#FFFFFF', textDecoration: 'none', marginBottom: '20px', display: 'block' }}>
-                                <img style={ArticlePoster} src={`/images/${el.image}`} />
+                                {el.image && <img style={ArticlePoster} src={`/images/${el.image}`} />}
                                 <h3 style={{ fontWeight: '900', marginBottom: '0', fontSize: '16px', color: '#d3cec4', textAlign: 'center' }}>{el.title}</h3>
                                 {/* <p style={{ fontWeight: '600', marginBottom: '0' }}>{el.description}</p> */}
                             </Link>
-                            {props.delete ?
+                            {props.delete &&
                                 <form onSubmit={props.delete} className="form-group" article={el._id}>
                                     <button type="sumbmit" className="btn btn-primary">delete</button>
-                                </form> : null}
+                                </form>}
                         </article>
-                    )
+                    );
                 })}
             </div>
         </div>

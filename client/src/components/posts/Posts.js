@@ -4,10 +4,10 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getPosts, sendPost, deletePost } from '../actions/postActions';
+import { getPosts, sendPost, deletePost } from '../../actions/postActions';
 import { Article } from './Article';
 import classnames from 'classnames';
-import isEmpty from '../validation/is-empty';
+import isEmpty from '../../validation/is-empty';
 
 type Props = {
     auth: Object<{

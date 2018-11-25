@@ -7,7 +7,7 @@ import { getPosts } from '../actions/postActions';
 import Login from './Login';
 import Home from './Home';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { SingleArticle } from './Article';
+import { SingleArticle } from './posts/Article';
 
 
 class Blog extends Component {
