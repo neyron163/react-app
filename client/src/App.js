@@ -4,7 +4,7 @@ import store from './store';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authentication';
-import Blog from './components/Blog';
+import Routers from './components/routers';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -24,7 +24,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-          <Blog />
+          <Routers />
       </Provider>
     );
   }

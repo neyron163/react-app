@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Posts from './posts/Posts';
-class Home extends Component {
+
+export default class Home extends Component {
     render() {
         return (
             <div>
@@ -9,5 +10,3 @@ class Home extends Component {
         )
     }
 }
-
-export default Home;

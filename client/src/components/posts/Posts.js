@@ -1,12 +1,13 @@
 // @flow
 
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPosts, sendPost, deletePost } from '../../actions/postActions';
 import { Article } from './Article';
 import classnames from 'classnames';
+
+import { accessAdmin } from '../../validation/access';
 import isEmpty from '../../validation/is-empty';
 
 type Props = {
@@ -33,10 +34,6 @@ type State = {
 }
 
 class Posts extends Component<Props, State> {
-    onChange;
-    onSendPost;
-    onDeletePost;
-
     constructor(props: Props) {
         super(props);
 
@@ -59,7 +56,7 @@ class Posts extends Component<Props, State> {
         this.props.getPosts()
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
 
         const Posts = this.props.post;
         let lastID;
@@ -74,7 +71,6 @@ class Posts extends Component<Props, State> {
                 lastID = el._id;
             });
         }
-
         if (nextProps.newPost && !isEmpty(nextProps.newPost) && nextProps.newPost._id !== lastID) {
             this.props.post.push(nextProps.newPost);
             this.setState({
@@ -102,6 +98,7 @@ class Posts extends Component<Props, State> {
         const DataAndFiles = new FormData();
 
         // Создаем обьект и присваиваем ему сохраненый state, из заполненых полей
+        // Create object and save state into data array from inputs
         const data = [
             {
                 title: title,
@@ -109,11 +106,12 @@ class Posts extends Component<Props, State> {
                 image: 'poster',
                 likes: likes,
             }
-        ]
+        ];
 
-        // Вставляем картинку
+        // Append image
         DataAndFiles.append('image', image, 'poster');
 
+        // Append text
         DataAndFiles.append(
             'text',
             JSON.stringify(data)
@@ -132,36 +130,17 @@ class Posts extends Component<Props, State> {
     }
 
     fileChangedHandler(e) {
-        // Обрабатываем найденный файл, он будет один
+        // Handler found file, it must be one
         const image = e.target.files[0];
-        // Тип файла только jpg формат
+        // Type file must be only jpg
         const type = 'image/jpg';
 
-        // Проверка на undefined
+        // Check on undefined
         if (image) {
-            // if (image.type === type) {
-                this.setState({
-                    image: image
-                });
-            // }
+            this.setState({
+                image: image
+            });
         }
-        //     if (image.type === types[0]) {
-        //         this.setState({
-        //             image: image,
-        //             // fileName: image.name,
-        //             // fileError: '',
-        //         });
-        //     } else {
-        //         this.setState({
-        //             fileError: 'You are cannot upload ' + image.type + ', only image jpeg',
-        //         });
-        //     }
-        // } else {
-        //     this.setState({
-        //         fileLength: image,
-        //         fileError: 'You are canceled',
-        //     });
-        // }
     }
 
 
@@ -178,12 +157,7 @@ class Posts extends Component<Props, State> {
     render() {
         const { isAuthenticated, user } = this.props.auth;
         const { errors } = this.state;
-        function accessAdmin(user, adminLevel) {
-            if (user.access >= adminLevel) {
-                return true;
-            }
-            return false;
-        }
+
         const superLevelPosts = (
             <Article post={this.props.post} delete={this.onDeletePost}>
                 <form onSubmit={this.onSendPost} className="form-group">
@@ -214,11 +188,11 @@ class Posts extends Component<Props, State> {
                         {errors.description && (<div className="invalid-feedback">{errors.description}</div>)}
                     </div>
                     <div className="form-group">
-                    <input
-                        type="file"
-                        id="file"
-                        className="form-control-file"
-                        onChange={this.fileChangedHandler.bind(this)} />
+                        <input
+                            type="file"
+                            id="file"
+                            className="form-control-file"
+                            onChange={this.fileChangedHandler.bind(this)} />
                     </div>
 
                     <button type="sumbmit" className="btn btn-primary">Sumbmit</button>
@@ -228,11 +202,7 @@ class Posts extends Component<Props, State> {
         const lowLevelPosts = (
             <Article post={this.props.post} />
         );
-        return (
-            <div className="container">
-                {isAuthenticated && accessAdmin(user, this.state.adminLevel) ? superLevelPosts : lowLevelPosts}
-            </div>
-        );
+        return isAuthenticated && accessAdmin(user, this.state.adminLevel) ? superLevelPosts : lowLevelPosts;
     }
 }
 
@@ -251,6 +221,6 @@ const mapStateToProps = (state) => ({
     post: state.post.items,
     newPost: state.post.item,
     errors: state.errors
-})
+});
 
 export default connect(mapStateToProps, { getPosts, sendPost, deletePost })(withRouter(Posts));

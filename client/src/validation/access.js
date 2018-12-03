@@ -1,0 +1,1 @@
+export const accessAdmin = (user, adminLevel) => user.access >= adminLevel && true;

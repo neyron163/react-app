@@ -1,7 +1,7 @@
 export const ArticlesStyle = {
     display: 'flex',
     flexWrap: 'wrap'
-}
+};
 
 export const ArticleStyle = {
     maxWidth: '220px',
@@ -9,18 +9,18 @@ export const ArticleStyle = {
     position: 'relative',
     overflow: 'hidden',
     marginRight: '15px',
-}
+};
 
 export const LastArticleStyle = {
     maxWidth: '220px',
     width: '100%',
     overflow: 'hidden',
     position: 'relative',
-}
+};
 
 export const ArticleSingle = {
     color: 'white'
-}
+};
 
 export const ArticlePoster = {
     // minWidth: '100.5%',
@@ -32,4 +32,4 @@ export const ArticlePoster = {
     // left: '50%',
     // top: '50%',
     // transform: 'translate(-50%, -50%)'
-}
+};

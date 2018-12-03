@@ -3,8 +3,8 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { shallow } from 'enzyme';
 import Navbar from './Navbar';
-import { logoutUser } from '../actions/authentication';
-import { getPosts } from '../actions/postActions'
+import { logoutUser } from '../../actions/authentication';
+import { getPosts } from '../../actions/postActions'
 // import store from '../store'
 
 const middlewares = [thunk]

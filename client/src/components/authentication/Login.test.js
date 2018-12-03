@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import { loginUser } from '../actions/authentication';
+import { loginUser } from '../../actions/authentication';
 
 import Login, { mapStateToProps } from './Login';
 
