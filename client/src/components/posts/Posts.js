@@ -1,11 +1,12 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPosts, sendPost, deletePost } from '../../actions/postActions';
-import { Article } from './Article';
-import classnames from 'classnames';
+
+import {AdminArticles} from './AdminArticles';
+import {UserArticles} from './UserArticles';
 
 import { accessAdmin } from '../../validation/access';
 import isEmpty from '../../validation/is-empty';
@@ -50,6 +51,7 @@ class Posts extends Component<Props, State> {
         this.onChange = this.onChange.bind(this);
         this.onSendPost = this.onSendPost.bind(this);
         this.onDeletePost = this.onDeletePost.bind(this);
+        this.fileChangedHandler = this.fileChangedHandler.bind(this);
     }
 
     componentDidMount() {
@@ -81,6 +83,7 @@ class Posts extends Component<Props, State> {
             });
         }
     }
+
     onChange(e) {
         this.setState({
             [e.target.name]: e.target.value,
@@ -158,63 +161,26 @@ class Posts extends Component<Props, State> {
         const { isAuthenticated, user } = this.props.auth;
         const { errors } = this.state;
 
-        const superLevelPosts = (
-            <Article post={this.props.post} delete={this.onDeletePost}>
-                <form onSubmit={this.onSendPost} className="form-group">
-                    <div className="form-group">
-                        <input
-                            type="text"
-                            placeholder="Your title"
-                            name="title"
-                            onChange={this.onChange}
-                            value={this.state.title}
-                            className={classnames('form-control form-control-lg', {
-                                'is-invalid': errors.title
-                            })}
-                        />
-                        {errors.title && (<div className="invalid-feedback">{errors.title}</div>)}
-                    </div>
-                    <div className="form-group">
-                        <textarea
-                            name="description"
-                            rows="6"
-                            placeholder="Your description"
-                            value={this.state.description}
-                            onChange={this.onChange}
-                            className={classnames('form-control form-control-lg', {
-                                'is-invalid': errors.description
-                            })}
-                        />
-                        {errors.description && (<div className="invalid-feedback">{errors.description}</div>)}
-                    </div>
-                    <div className="form-group">
-                        <input
-                            type="file"
-                            id="file"
-                            className="form-control-file"
-                            onChange={this.fileChangedHandler.bind(this)} />
-                    </div>
-
-                    <button type="sumbmit" className="btn btn-primary">Sumbmit</button>
-                </form>
-            </Article >
-        );
-        const lowLevelPosts = (
-            <Article post={this.props.post} />
-        );
-        return isAuthenticated && accessAdmin(user, this.state.adminLevel) ? superLevelPosts : lowLevelPosts;
+        return(
+            <Fragment>
+                {isAuthenticated && accessAdmin(user, this.state.adminLevel) ?
+                <AdminArticles
+                    errors={errors}
+                    post={this.props.post}
+                    title={this.state.title}
+                    description={this.state.description}
+                    onChange={this.onChange}
+                    onSendPost={this.onSendPost}
+                    onDeletePost={this.onDeletePost}
+                    fileChangedHandler={this.fileChangedHandler}
+                /> :
+                <UserArticles
+                    post={this.props.post}
+                />};
+            </Fragment>
+        )
     }
 }
-
-// Posts.propTypes = {
-//     auth: PropTypes.object.isRequired,
-//     getPosts: PropTypes.func.isRequired,
-//     sendPost: PropTypes.func.isRequired,
-//     deletePost: PropTypes.func.isRequired,
-//     post: PropTypes.array.isRequired,
-//     newPost: PropTypes.object.isRequired,
-//     errors: PropTypes.object.isRequired,
-// }
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
