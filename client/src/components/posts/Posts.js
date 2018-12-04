@@ -55,6 +55,7 @@ class Posts extends Component<Props, State> {
     }
 
     componentDidMount() {
+        // Get all posts
         this.props.getPosts()
     }
 
@@ -91,17 +92,19 @@ class Posts extends Component<Props, State> {
     }
 
     onSendPost(e) {
-        // Убираем перезагрузку страницы
+        /*
+         1.Delete reload page
+         2.Destructuring objects
+         3.Create FormData
+         4.Create object and save state into data array from inputs
+         5.Append image
+         6.Append text
+         7.Call function for sending and one argument will be data object
+         8.After clear state ( input and textarea )
+        */
         e.preventDefault();
-
-        // Деструктуризация объектов
         const { title, description, image, likes } = this.state;
-
-        // Создание обьекта FormData
         const DataAndFiles = new FormData();
-
-        // Создаем обьект и присваиваем ему сохраненый state, из заполненых полей
-        // Create object and save state into data array from inputs
         const data = [
             {
                 title: title,
@@ -111,34 +114,27 @@ class Posts extends Component<Props, State> {
             }
         ];
 
-        // Append image
         DataAndFiles.append('image', image, 'poster');
-
-        // Append text
         DataAndFiles.append(
             'text',
             JSON.stringify(data)
         );
-
-        // Вызываем функцию отправки, в качестве аргумента будет обьект с данными
         this.props.sendPost(DataAndFiles);
-
-        // После отправки поля будут очищены
         this.setState({
             title: '',
             description: '',
             image: '',
         });
-
     }
 
     fileChangedHandler(e) {
-        // Handler found file, it must be one
+        /*
+           1.Handler found file, it must be one
+           2.Type file must be only jpg
+           3.Check on undefined
+        */
         const image = e.target.files[0];
-        // Type file must be only jpg
         const type = 'image/jpg';
-
-        // Check on undefined
         if (image) {
             this.setState({
                 image: image
@@ -164,19 +160,19 @@ class Posts extends Component<Props, State> {
         return(
             <Fragment>
                 {isAuthenticated && accessAdmin(user, this.state.adminLevel) ?
-                <AdminArticles
-                    errors={errors}
-                    post={this.props.post}
-                    title={this.state.title}
-                    description={this.state.description}
-                    onChange={this.onChange}
-                    onSendPost={this.onSendPost}
-                    onDeletePost={this.onDeletePost}
-                    fileChangedHandler={this.fileChangedHandler}
-                /> :
-                <UserArticles
-                    post={this.props.post}
-                />};
+                    <AdminArticles
+                        errors={errors}
+                        post={this.props.post}
+                        title={this.state.title}
+                        description={this.state.description}
+                        onChange={this.onChange}
+                        onSendPost={this.onSendPost}
+                        onDeletePost={this.onDeletePost}
+                        fileChangedHandler={this.fileChangedHandler}
+                    /> :
+                    <UserArticles
+                        post={this.props.post}
+                    />};
             </Fragment>
         )
     }
