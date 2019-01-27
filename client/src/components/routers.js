@@ -12,7 +12,7 @@ import Filters from './filters/filters';
 import { SingleArticle } from './posts/SingleArticle';
 
 import { HomeStyle, ContainerStyle } from '../styles/Home';
-import bg from '../images/background.jpg';
+// import bg from '../images/background.jpg';
 
 
 class Routers extends Component {
@@ -25,7 +25,7 @@ class Routers extends Component {
         );
         return (
             <div>
-                <img src={bg} style={HomeStyle} alt="background"/>
+                {/* <img src={bg} style={HomeStyle} alt="background"/> */}
                 <div style={ContainerStyle}>
                     <Router>
                         <div style={{ background: 'white', width: '80%' }}>

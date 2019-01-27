@@ -1,6 +1,4 @@
-import React, { Component } from 'react';
-import {Article} from "./Article";
+import React from 'react';
+import { Article } from "./Article";
 
-export const UserArticles = () => (
-    <Article post={this.props.post} />
-);
+export const UserArticles = props => <Article post={props.post} />;
