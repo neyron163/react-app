@@ -13,14 +13,13 @@ import {
 } from '../../styles/Article';
 
 type Props = {
-    post: Array<
-    {
+    post: Array<{
         _id: string,
         title: string,
         description: string,
-        likes: number
-    }
-    >
+        likes: number,
+    }>,
+    children: node,
 };
 
 
@@ -29,7 +28,7 @@ export const Article = (props: Props) => {
         <div>
             {props.children}
             <div style={ArticlesStyle}>
-                {props.post.slice(0).map((el, i) => {
+                {props.post.slice(0).map((el: string, i): string => {
                     return (
                         <article className="item" key={i} style={i !== 3 ? ArticleStyle : LastArticleStyle}>
                             <Link to={`article/${i + 1}`} style={{ color: '#FFFFFF', textDecoration: 'none', marginBottom: '20px', display: 'block' }}>

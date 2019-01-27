@@ -12,26 +12,23 @@ import { accessAdmin } from '../../validation/access';
 import isEmpty from '../../validation/is-empty';
 
 type Props = {
-    auth: Object<{
-        isAuthenticated: boolean,
-        user: object
-    }>,
-    getPosts: object,
-    sendPost: object,
-    deletePost: object,
+    auth?: object,
+    getPosts?: object,
+    sendPost?: object,
+    deletePost?: object,
     post: object,
     newPost: object,
     errors: object,
 }
 
 type State = {
-    id: string,
     title: string,
     description: string,
     image: string,
     likes: number,
     adminLevel: number,
-    errors: object
+    errors: object,
+    id: string,
 }
 
 class Posts extends Component<Props, State> {
